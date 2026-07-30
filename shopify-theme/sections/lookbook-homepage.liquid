@@ -2,44 +2,24 @@
 
 <div class="lookbook-homepage">
 
-  <h2>Homepage Lookbook Section</h2>
-
   {% if selected_lookbook %}
 
-    <h3>Selected Lookbook</h3>
+    <h2>{{ selected_lookbook.lookbook_title }}</h2>
 
-    <p>
-      <strong>Title:</strong>
-      {{ selected_lookbook.lookbook_title }}
-    </p>
+    {% if section.settings.show_description %}
+      <p>{{ selected_lookbook.lookbook_description }}</p>
+    {% endif %}
 
-    <p>
-      <strong>Description:</strong>
-      {{ selected_lookbook.lookbook_description }}
-    </p>
+    <div
+      id="lookbook-products"
+      data-product-handles="{% for handle in selected_lookbook.product_handle_lookbook.value %}{{ handle }}{% unless forloop.last %},{% endunless %}{% endfor %}">
+    </div>
 
-    <p>
-      <strong>Product Handles:</strong>
-    </p>
-
-    <ul>
-      {% for handle in selected_lookbook.product_handle_lookbook.value %}
-        <li>{{ handle }}</li>
-      {% endfor %}
-    </ul>
-
-<div
-id="lookbook-products"
-data-product-handles="{% for handle in selected_lookbook.product_handle_lookbook.value %}{{ handle }}{% unless forloop.last %},{% endunless %}{% endfor %}">
-</div>
-
-<p>
-{{ selected_lookbook.product_handproduct_handle_lookbookle.value | join: ',' }}
-</p>
+    <div id="lookbook-render-products"></div>
 
   {% else %}
 
-    <p>No lookbook selected.</p>
+    <p>Please select a lookbook in the Theme Customizer.</p>
 
   {% endif %}
 
@@ -67,6 +47,7 @@ data-product-handles="{% for handle in selected_lookbook.product_handle_lookbook
       "label": "Show Compare At Price",
       "default": true
     },
+    
     {
       "type": "range",
       "id": "products_per_row",
