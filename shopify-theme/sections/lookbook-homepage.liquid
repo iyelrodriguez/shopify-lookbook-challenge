@@ -1,0 +1,104 @@
+{% assign selected_lookbook = section.settings.lookbook %}
+
+<div class="lookbook-homepage">
+
+  <h2>Homepage Lookbook Section</h2>
+
+  {% if selected_lookbook %}
+
+    <h3>Selected Lookbook</h3>
+
+    <p>
+      <strong>Title:</strong>
+      {{ selected_lookbook.lookbook_title }}
+    </p>
+
+    <p>
+      <strong>Description:</strong>
+      {{ selected_lookbook.lookbook_description }}
+    </p>
+
+    <p>
+      <strong>Product Handles:</strong>
+    </p>
+
+    <ul>
+      {% for handle in selected_lookbook.product_handle_lookbook.value %}
+        <li>{{ handle }}</li>
+      {% endfor %}
+    </ul>
+
+<div
+id="lookbook-products"
+data-product-handles="{% for handle in selected_lookbook.product_handle_lookbook.value %}{{ handle }}{% unless forloop.last %},{% endunless %}{% endfor %}">
+</div>
+
+<p>
+{{ selected_lookbook.product_handproduct_handle_lookbookle.value | join: ',' }}
+</p>
+
+  {% else %}
+
+    <p>No lookbook selected.</p>
+
+  {% endif %}
+
+</div>
+
+{% schema %}
+{
+  "name": "Homepage Lookbook",
+  "settings": [
+    {
+      "type": "metaobject",
+      "id": "lookbook",
+      "label": "Select Lookbook",
+      "metaobject_type": "lookbook"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show Description",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_compare_price",
+      "label": "Show Compare At Price",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "products_per_row",
+      "label": "Products Per Row",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Homepage Lookbook"
+    }
+  ]
+}
+{% endschema %}
