@@ -1,83 +1,139 @@
-/* -------------------------------------------------- */
+/* ---------------------------------- */
 /* Homepage Lookbook Section */
-/* -------------------------------------------------- */
+/* ---------------------------------- */
 
 .lookbook-homepage {
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-  
-  .lookbook-homepage h2 {
-    margin-bottom: 10px;
-  }
-  
-  .lookbook-homepage p {
-    margin-bottom: 20px;
-  }
-  
-  
-  /* -------------------------------------------------- */
-  /* Product Grid */
-  /* -------------------------------------------------- */
-  
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+
+/* ---------------------------------- */
+/* Lookbook Header */
+/* ---------------------------------- */
+
+.lookbook-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.lookbook-header h2 {
+  margin-bottom: 12px;
+  font-size: 32px;
+  line-height: 1.2;
+}
+
+.lookbook-header p {
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+  color: #666;
+}
+
+
+/* ---------------------------------- */
+/* Product Grid */
+/* ---------------------------------- */
+
+#lookbook-render-products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+
+/* ---------------------------------- */
+/* Product Card */
+/* ---------------------------------- */
+
+.lookbook-product-card {
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 20px;
+  background: #ffffff;
+  transition: all 0.25s ease;
+}
+
+.lookbook-product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ---------------------------------- */
+/* Product Image */
+/* ---------------------------------- */
+
+.lookbook-product-card img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  display: block;
+  border-radius: 8px;
+  margin-bottom: 18px;
+}
+
+
+/* ---------------------------------- */
+/* Product Title */
+/* ---------------------------------- */
+
+.lookbook-product-card h3 {
+  margin: 0 0 12px;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+
+/* ---------------------------------- */
+/* Product Pricing */
+/* ---------------------------------- */
+
+.lookbook-product-card p {
+  margin: 0;
+}
+
+.price {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 6px !important;
+}
+
+.compare-price {
+  font-size: 14px;
+  color: #888;
+  text-decoration: line-through;
+}
+
+
+/* ---------------------------------- */
+/* Responsive Layout */
+/* ---------------------------------- */
+
+@media screen and (max-width: 991px) {
   #lookbook-render-products {
-    display: grid;
-    gap: 24px;
+    grid-template-columns: repeat(2, 1fr);
   }
-  
-  
-  /* -------------------------------------------------- */
-  /* Product Card */
-  /* -------------------------------------------------- */
-  
+
+  .lookbook-header h2 {
+    font-size: 28px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #lookbook-render-products {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .lookbook-header {
+    margin-bottom: 30px;
+  }
+
+  .lookbook-header h2 {
+    font-size: 24px;
+  }
+
   .lookbook-product-card {
-    border: 1px solid #e5e5e5;
-    border-radius: 8px;
-    padding: 20px;
-    transition: 0.2s ease-in-out;
+    padding: 16px;
   }
-  
-  .lookbook-product-card:hover {
-    transform: translateY(-2px);
-  }
-  
-  .lookbook-product-card img {
-    width: 100%;
-    display: block;
-    object-fit: cover;
-    border-radius: 6px;
-    margin-bottom: 16px;
-  }
-  
-  .lookbook-product-card h3 {
-    margin: 0 0 10px;
-    font-size: 18px;
-  }
-  
-  .price {
-    font-weight: 600;
-    margin-bottom: 6px;
-  }
-  
-  .compare-price {
-    text-decoration: line-through;
-    opacity: 0.6;
-    margin: 0;
-  }
-  
-  
-  /* -------------------------------------------------- */
-  /* Responsive Layout */
-  /* -------------------------------------------------- */
-  
-  @media screen and (max-width: 768px) {
-    #lookbook-render-products {
-      grid-template-columns: repeat(2, 1fr) !important;
-    }
-  }
-  
-  @media screen and (max-width: 480px) {
-    #lookbook-render-products {
-      grid-template-columns: repeat(1, 1fr) !important;
-    }
-  }
+}

@@ -1,25 +1,48 @@
 {% assign selected_lookbook = section.settings.lookbook %}
 
-<div class="lookbook-homepage">
+{{ 'lookbook.css' | asset_url | stylesheet_tag }}
+
+<div
+  class="lookbook-homepage"
+  style="
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
 
   {% if selected_lookbook %}
 
-    <h2>{{ selected_lookbook.lookbook_title }}</h2>
+    <!-- Lookbook Header -->
+    <div class="lookbook-header">
 
-    {% if section.settings.show_description %}
-      <p>{{ selected_lookbook.lookbook_description }}</p>
-    {% endif %}
+      <h2>
+        {{ selected_lookbook.lookbook_title }}
+      </h2>
 
-    <div
-      id="lookbook-products"
-      data-product-handles="{% for handle in selected_lookbook.product_handle_lookbook.value %}{{ handle }}{% unless forloop.last %},{% endunless %}{% endfor %}">
+      {% if section.settings.show_description %}
+        <p>
+          {{ selected_lookbook.lookbook_description }}
+        </p>
+      {% endif %}
+
     </div>
 
+    <!-- Pass product handles to JavaScript -->
+   <div
+  id="lookbook-products"
+  data-product-handles="{% for handle in selected_lookbook.product_handle_lookbook.value %}{{ handle }}{% unless forloop.last %},{% endunless %}{% endfor %}"
+  data-show-compare-price="{{ section.settings.show_compare_price }}"
+>
+</div>
+
+    <!-- Products are rendered dynamically by lookbook.js -->
     <div id="lookbook-render-products"></div>
 
   {% else %}
 
-    <p>Please select a lookbook in the Theme Customizer.</p>
+    <p>
+      Please select a Lookbook from the Theme Customizer.
+    </p>
 
   {% endif %}
 
@@ -47,7 +70,6 @@
       "label": "Show Compare At Price",
       "default": true
     },
-    
     {
       "type": "range",
       "id": "products_per_row",

@@ -15,7 +15,8 @@ const lookbookContainer = document.getElementById(
   "lookbook-products"
 );
 
-
+const showComparePrice =
+  lookbookContainer?.dataset.showComparePrice === "true";
 
 // --------------------------------------------------
 // Fetch Products By Handles
@@ -98,7 +99,6 @@ async function fetchProductsByHandles(handles) {
   return products;
 }
 
-
 // --------------------------------------------------
 // Render Products
 // --------------------------------------------------
@@ -117,26 +117,28 @@ function renderProducts(products) {
         <img
           src="${product.featuredImage}"
           alt="${product.title}"
-          width="150"
         />
 
         <h3>${product.title}</h3>
 
-        <p>
-          Price: ${product.currencyCode} ${product.price}
+        <p class="price">
+          ${product.currencyCode} ${product.price}
         </p>
 
-        <p>
-          Compare At: ${product.currencyCode} ${product.compareAtPrice}
-        </p>
-
-        <hr />
+        ${
+          showComparePrice && product.compareAtPrice
+            ? `
+              <p class="compare-price">
+                ${product.currencyCode} ${product.compareAtPrice}
+              </p>
+            `
+            : ""
+        }
 
       </div>
     `;
   });
 }
-
 
 // --------------------------------------------------
 // Initialize Lookbook
