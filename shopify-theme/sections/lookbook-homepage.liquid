@@ -1,53 +1,25 @@
+{{ 'lookbook-react.css' | asset_url | stylesheet_tag }}
+
 {% assign selected_lookbook = section.settings.lookbook %}
 
-{{ 'lookbook.css' | asset_url | stylesheet_tag }}
-
 <div
-  class="lookbook-homepage"
-  style="
-    padding-top: {{ section.settings.padding_top }}px;
-    padding-bottom: {{ section.settings.padding_bottom }}px;
-  "
->
-
-  {% if selected_lookbook %}
-
-    <!-- Lookbook Header -->
-    <div class="lookbook-header">
-
-      <h2>
-        {{ selected_lookbook.lookbook_title }}
-      </h2>
-
-      {% if section.settings.show_description %}
-        <p>
-          {{ selected_lookbook.lookbook_description }}
-        </p>
-      {% endif %}
-
-    </div>
-
-    <!-- Pass product handles to JavaScript -->
-   <div
   id="lookbook-products"
-  data-product-handles="{% for handle in selected_lookbook.product_handle_lookbook.value %}{{ handle }}{% unless forloop.last %},{% endunless %}{% endfor %}"
+  data-title="{{ selected_lookbook.lookbook_title | escape }}"
+  data-description="{{ selected_lookbook.lookbook_description | escape }}"
+  data-show-description="{{ section.settings.show_description }}"
   data-show-compare-price="{{ section.settings.show_compare_price }}"
->
+  data-products-per-row="{{ section.settings.products_per_row }}"
+  data-padding-top="{{ section.settings.padding_top }}"
+  data-padding-bottom="{{ section.settings.padding_bottom }}"
+  data-product-handles="{% for handle in selected_lookbook.product_handle_lookbook.value %}{{ handle }}{% unless forloop.last %},{% endunless %}{% endfor %}">
 </div>
 
-    <!-- Products are rendered dynamically by lookbook.js -->
-    <div id="lookbook-render-products"></div>
+<div id="lookbook-react-root"></div>
 
-  {% else %}
-
-    <p>
-      Please select a Lookbook from the Theme Customizer.
-    </p>
-
-  {% endif %}
-
-</div>
-
+<script
+  type="module"
+  src="{{ 'lookbook-react.js' | asset_url }}">
+</script>
 {% schema %}
 {
   "name": "Homepage Lookbook",

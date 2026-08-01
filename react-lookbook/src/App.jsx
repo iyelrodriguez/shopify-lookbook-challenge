@@ -1,21 +1,45 @@
+import { useEffect, useState } from "react";
 import Lookbook from "./components/Lookbook";
-import { products } from "./data/mockProducts";
-import { lookbooks } from "./data/mockLookbooks";
+import { fetchProductsByHandles } from "./services/storefront";
 
 function App() {
-  const summerCollection = lookbooks[0];
+  const [products, setProducts] = useState([]);
+  const [settings, setSettings] = useState(null);
 
-  const lookbookProducts = products.filter((product) =>
-    summerCollection.productHandles.includes(
-      product.handle
-    )
-  );
+  useEffect(() => {
+    const container = document.getElementById("lookbook-products");
+
+    if (!container) return;
+
+    const handles = container.dataset.productHandles.split(",");
+
+    setSettings({
+      title: container.dataset.title,
+      description: container.dataset.description,
+      showDescription:
+        container.dataset.showDescription === "true",
+      showComparePrice:
+        container.dataset.showComparePrice === "true",
+      productsPerRow: Number(
+        container.dataset.productsPerRow
+      ),
+      paddingTop: Number(
+        container.dataset.paddingTop
+      ),
+      paddingBottom: Number(
+        container.dataset.paddingBottom
+      ),
+    });
+
+    fetchProductsByHandles(handles).then(setProducts);
+  }, []);
+
+  if (!settings) return null;
 
   return (
     <Lookbook
-      title={summerCollection.title}
-      description={summerCollection.description}
-      products={lookbookProducts}
+      {...settings}
+      products={products}
     />
   );
 }

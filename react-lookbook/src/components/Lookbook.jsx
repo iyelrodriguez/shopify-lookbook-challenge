@@ -1,14 +1,35 @@
 import ProductGrid from "./ProductGrid";
 
-function Lookbook({ title, description, products }) {
+function Lookbook({
+  title,
+  description,
+  showDescription,
+  showComparePrice,
+  productsPerRow,
+  paddingTop,
+  paddingBottom,
+  products,
+}) {
   return (
-    <div>
-      <h1>{title}</h1>
+    <section
+      className="lookbook-homepage"
+      style={{
+        paddingTop,
+        paddingBottom,
+      }}
+    >
+      <div className="lookbook-header">
+        <h2>{title}</h2>
 
-      <p>{description}</p>
+        {showDescription && <p>{description}</p>}
+      </div>
 
-      <ProductGrid products={products} />
-    </div>
+      <ProductGrid
+        products={products}
+        showComparePrice={showComparePrice}
+        productsPerRow={productsPerRow}
+      />
+    </section>
   );
 }
 

@@ -1,23 +1,27 @@
-function ProductCard({ product }) {
-    return (
-      <div>
-        <img
-          src={product.image}
-          alt={product.title}
-          width="250"
-        />
-  
-        <h3>{product.title}</h3>
-  
-        <p>
-          {product.currency} {product.price}
+function ProductCard({
+  product,
+  showComparePrice = true,
+}) {
+  return (
+    <div className="lookbook-product-card">
+      <img
+        src={product.featuredImage}
+        alt={product.title}
+      />
+
+      <h3>{product.title}</h3>
+
+      <p>
+        {product.currencyCode} {product.price}
+      </p>
+
+            {showComparePrice && product.compareAtPrice && (
+        <p className="compare-price">
+          {product.currency} {product.compareAtPrice}
         </p>
-  
-        <p>
-          Compare at: {product.currency} {product.compareAtPrice}
-        </p>
-      </div>
-    );
-  }
-  
-  export default ProductCard;
+)}
+    </div>
+  );s
+}
+
+export default ProductCard;

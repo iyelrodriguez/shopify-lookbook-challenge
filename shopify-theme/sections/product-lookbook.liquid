@@ -1,0 +1,31 @@
+{{ 'lookbook.css' | asset_url | stylesheet_tag }}
+{{ 'product-lookbook.js' | asset_url | script_tag }}
+
+<div class="product-lookbook">
+
+  <div class="lookbook-header">
+    <h2>Complete the Look</h2>
+    <p>Products from the same lookbook.</p>
+  </div>
+
+  <div
+    id="product-lookbook"
+    data-product-handle="{{ product.handle }}"
+  >
+  </div>
+
+  <div id="product-lookbook-render"></div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Product Lookbook",
+  "templates": ["product"],
+  "presets": [
+    {
+      "name": "Product Lookbook"
+    }
+  ]
+}
+{% endschema %}

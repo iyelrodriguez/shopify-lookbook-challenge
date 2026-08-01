@@ -1,13 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
+import ProductApp from "./ProductApp";
 
-const root = document.getElementById("lookbook-react-root");
+const root = document.getElementById(
+  "product-lookbook-react-root"
+);
 
 if (root) {
   ReactDOM.createRoot(root).render(
     <React.StrictMode>
-      <App />
+      <ProductApp />
     </React.StrictMode>
   );
 }
