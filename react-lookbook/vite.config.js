@@ -1,25 +1,24 @@
 import { defineConfig } from "vite";
-import react, { reactCompilerPreset } from "@vitejs/plugin-react";
-import babel from "@rolldown/plugin-babel";
+import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 
 export default defineConfig({
-  plugins: [
-    react(),
-    babel({
-      presets: [reactCompilerPreset()],
-    }),
-  ],
+  plugins: [react()],
 
   build: {
     outDir: resolve(__dirname, "../shopify-theme/assets"),
     emptyOutDir: false,
 
+    cssCodeSplit: true,
+
     rollupOptions: {
+      input: resolve(__dirname, "src/main.jsx"),
+
       output: {
         entryFileNames: "lookbook-react.js",
-        assetFileNames: (assetInfo) => {
-          if (assetInfo.name && assetInfo.name.endsWith(".css")) {
+
+        assetFileNames(assetInfo) {
+          if (assetInfo.name?.endsWith(".css")) {
             return "lookbook-react.css";
           }
 
