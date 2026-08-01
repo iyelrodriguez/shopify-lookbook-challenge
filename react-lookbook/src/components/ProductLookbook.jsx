@@ -7,15 +7,19 @@ function ProductLookbook({
 }) {
   return (
     <section className="product-lookbook">
+
       <div className="lookbook-header">
-        <h2>{title}</h2>
+        <h2>Complete the Look</h2>
+
+        <p>{title}</p>
       </div>
 
       <ProductGrid
         products={products}
         showComparePrice={showComparePrice}
-        productsPerRow={4}
+        productsPerRow={3}
       />
+
     </section>
   );
 }

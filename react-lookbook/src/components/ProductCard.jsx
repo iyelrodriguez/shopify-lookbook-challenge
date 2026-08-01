@@ -1,27 +1,42 @@
+import { formatPrice } from "../utils/formatPrice";
+
 function ProductCard({
   product,
   showComparePrice = true,
 }) {
   return (
-    <div className="lookbook-product-card">
+    <a
+      href={`/products/${product.handle}`}
+      className="lookbook-product-card"
+    >
       <img
-        src={product.featuredImage}
-        alt={product.title}
-      />
+  loading="lazy"
+  src={product.featuredImage}
+  alt={product.title}
+/>
 
       <h3>{product.title}</h3>
 
-      <p>
-        {product.currencyCode} {product.price}
-      </p>
+      <div className="lookbook-price">
+        <span className="price">
+          {formatPrice(
+            product.price,
+            product.currencyCode
+          )}
+        </span>
 
-            {showComparePrice && product.compareAtPrice && (
-        <p className="compare-price">
-          {product.currency} {product.compareAtPrice}
-        </p>
-)}
-    </div>
-  );s
+        {showComparePrice &&
+          product.compareAtPrice && (
+            <span className="compare-price">
+              {formatPrice(
+                product.compareAtPrice,
+                product.currencyCode
+              )}
+            </span>
+          )}
+      </div>
+    </a>
+  );
 }
 
 export default ProductCard;

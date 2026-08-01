@@ -1,22 +1,55 @@
 {{ 'lookbook.css' | asset_url | stylesheet_tag }}
-{{ 'product-lookbook.js' | asset_url | script_tag }}
 
-<div class="product-lookbook">
+{% assign current_handle = product.handle %}
+{% assign rendered_count = 0 %}
 
-  <div class="lookbook-header">
-    <h2>Complete the Look</h2>
-    <p>Products from the same lookbook.</p>
-  </div>
+<section class="product-lookbook">
 
-  <div
-    id="product-lookbook"
-    data-product-handle="{{ product.handle }}"
-  >
-  </div>
+  {% for lookbook in shop.metaobjects.lookbook.values %}
 
-  <div id="product-lookbook-render"></div>
+    {% if rendered_count < 2 %}
 
-</div>
+      {% assign found = false %}
+
+      {% for handle in lookbook.product_handle_lookbook.value %}
+        {% if handle == current_handle %}
+          {% assign found = true %}
+        {% endif %}
+      {% endfor %}
+
+    {% if found %}
+
+
+  {% assign rendered_count = rendered_count | plus: 1 %}
+
+        {% capture related_handles %}
+          {% for handle in lookbook.product_handle_lookbook.value %}
+            {{ handle }}{% unless forloop.last %},{% endunless %}
+          {% endfor %}
+        {% endcapture %}
+
+        <div
+          class="product-lookbook-data"
+          data-title="{{ lookbook.lookbook_title.value }}"
+          data-current-handle="{{ current_handle }}"
+          data-show-compare-price="true"
+          data-product-handles="{{ related_handles | strip }}">
+        </div>
+
+      {% endif %}
+
+    {% endif %}
+
+  {% endfor %}
+
+  <div id="product-lookbook-react-root"></div>
+
+</section>
+
+<script
+  type="module"
+  src="{{ 'lookbook-react.js' | asset_url }}">
+</script>
 
 {% schema %}
 {
