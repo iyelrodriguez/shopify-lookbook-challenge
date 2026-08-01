@@ -10,7 +10,7 @@ The homepage displays curated lookbooks created using Shopify Metaobjects, while
 
 ## Features
 
-### Homepage Lookbook
+#### Homepage Lookbook
 
 - React-powered homepage lookbook
 - Reads data from Shopify Metaobjects
